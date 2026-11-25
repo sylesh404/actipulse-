@@ -409,19 +409,45 @@ def detect_activity_distribution_changes(
 
 
 def detect_all_patterns_for_date(
-    df: pd.DataFrame,
+    db_manager,
     target_date: str,
+    lookback_days: int = 30,
     activities: Optional[List[str]] = None,
 ) -> List[DetectedPattern]:
     """Detect all unusual patterns for a specific date.
     
     Args:
-        df: Activity records DataFrame
+        db_manager: DatabaseManager instance
         target_date: Date to analyze
+        lookback_days: Number of days to look back for baseline (default: 30)
         activities: Optional list of activities to analyze (default: all)
         
     Returns:
         List of all detected patterns
+    """
+    # Get all activity records
+    df = db_manager.get_all_activity_records()
+    
+    if df.empty:
+        return []
+    
+    return _detect_patterns_internal(df, target_date, activities)
+
+
+def _detect_patterns_internal(
+    df: pd.DataFrame,
+    target_date: str,
+    activities: Optional[List[str]] = None,
+) -> List[DetectedPattern]:
+    """Internal function to detect patterns from DataFrame.
+    
+    Args:
+        df: Activity records DataFrame
+        target_date: Date to analyze
+        activities: Optional list of activities to analyze
+        
+    Returns:
+        List of detected patterns
     """
     all_patterns = []
     
@@ -449,16 +475,19 @@ def detect_all_patterns_for_date(
     return all_patterns
 
 
-def get_pattern_overview(df: pd.DataFrame, days: int = 7) -> Dict[str, Any]:
+def get_pattern_overview(db_manager, days: int = 30) -> Dict[str, Any]:
     """Get overview of unusual patterns over recent period.
     
     Args:
-        df: Activity records DataFrame
+        db_manager: DatabaseManager instance
         days: Number of recent days to analyze
         
     Returns:
-        Pattern overview summary
+        Pattern overview summary (dict mapping date strings to lists of DetectedPattern)
     """
+    # Get all activity records
+    df = db_manager.get_all_activity_records()
+    
     if df.empty:
         return {
             "has_patterns": False,
@@ -472,34 +501,15 @@ def get_pattern_overview(df: pd.DataFrame, days: int = 7) -> Dict[str, Any]:
     recent_dates = pd.date_range(start=start_date, end=latest_date, freq="D")
     recent_dates = [d.strftime("%Y-%m-%d") for d in recent_dates]
     
-    all_patterns = []
-    dates_with_data = []
+    all_patterns_by_date = {}
     
     for date in recent_dates:
         if date in df["activity_date"].values:
             dates_with_data.append(date)
-            patterns = detect_all_patterns_for_date(df, date)
-            all_patterns.extend(patterns)
+            patterns = _detect_patterns_internal(df, date)
+            if patterns:
+                all_patterns_by_date[date] = patterns
+                all_patterns.extend(patterns)
     
-    # Group by severity
-    severity_counts = {
-        "significant": len([p for p in all_patterns if p.severity == "significant"]),
-        "moderate": len([p for p in all_patterns if p.severity == "moderate"]),
-        "minor": len([p for p in all_patterns if p.severity == "minor"]),
-    }
-    
-    # Group by pattern type
-    type_counts = {}
-    for pattern in all_patterns:
-        type_counts[pattern.pattern_type] = type_counts.get(pattern.pattern_type, 0) + 1
-    
-    return {
-        "has_patterns": len(all_patterns) > 0,
-        "total_patterns": len(all_patterns),
-        "date_range": {"start": start_date, "end": latest_date},
-        "dates_with_data": len(dates_with_data),
-        "dates_missing_data": len(recent_dates) - len(dates_with_data),
-        "severity_distribution": severity_counts,
-        "pattern_types": type_counts,
-        "patterns": [p.to_dict() for p in all_patterns],
-    }
+    # Return dict mapping dates to pattern lists
+    return all_patterns_by_date

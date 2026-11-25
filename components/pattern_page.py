@@ -196,19 +196,22 @@ def _render_pattern_details(patterns: list[DetectedPattern]) -> None:
         # Build the card
         with st.expander(
             f"{severity_icon} **{pattern.pattern_type.replace('_', ' ').title()}** – "
-            f"{pattern.activity_label} – {pattern.severity.upper()}",
+            f"{pattern.activity} – {pattern.severity.upper()}",
             expanded=(pattern.severity == "significant"),
         ):
             col1, col2 = st.columns([2, 1])
             
             with col1:
-                st.markdown(f"**Description:** {pattern.description}")
-                st.markdown(f"**Confidence:** {pattern.confidence:.0%}")
+                st.markdown(f"**Description:** {pattern.explanation}")
+                st.markdown(f"**Method:** {pattern.detection_method}")
                 
-                if pattern.additional_context:
-                    st.markdown("**Context:**")
-                    for key, value in pattern.additional_context.items():
-                        st.markdown(f"- {key.replace('_', ' ').title()}: {value}")
+                if pattern.statistical_details:
+                    st.markdown("**Statistical Details:**")
+                    for key, value in pattern.statistical_details.items():
+                        if isinstance(value, float):
+                            st.markdown(f"- {key.replace('_', ' ').title()}: {value:.2f}")
+                        else:
+                            st.markdown(f"- {key.replace('_', ' ').title()}: {value}")
             
             with col2:
                 st.markdown(
@@ -226,7 +229,7 @@ def _render_pattern_details(patterns: list[DetectedPattern]) -> None:
                             {pattern.severity.upper()}
                         </div>
                         <div style="font-size: 0.875rem; color: #CFED89;">
-                            {pattern.activity_label}
+                            {pattern.activity}
                         </div>
                     </div>
                     """,
@@ -241,7 +244,7 @@ def _render_pattern_visualization(patterns: list[DetectedPattern], analysis_date
     # Group patterns by activity
     activity_patterns = {}
     for pattern in patterns:
-        activity = pattern.activity_label
+        activity = pattern.activity
         if activity not in activity_patterns:
             activity_patterns[activity] = []
         activity_patterns[activity].append(pattern)
@@ -340,10 +343,10 @@ def _render_pattern_overview_section(db_manager: DatabaseManager) -> None:
         for pattern in date_patterns:
             overview_data.append({
                 "date": date_str,
-                "activity": pattern.activity_label,
+                "activity": pattern.activity,
                 "type": pattern.pattern_type,
                 "severity": pattern.severity,
-                "confidence": pattern.confidence,
+                "confidence": pattern.confidence if hasattr(pattern, 'confidence') else 1.0,
             })
     
     if not overview_data:
