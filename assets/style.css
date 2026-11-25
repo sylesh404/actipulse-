@@ -1,0 +1,783 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap');
+
+/* ============================================
+   ACTIPULSE AI - PREMIUM SPORTS-TECH DESIGN
+   Athletic Performance | Modern AI Dashboard
+   ============================================ */
+
+:root {
+    /* Primary Palette */
+    --ap-green-neon: #AFFA00;
+    --ap-green-light: #CFED89;
+    --ap-white: #FFFFFF;
+    --ap-charcoal: #1C1C1C;
+    --ap-black: #000000;
+    
+    /* Extended Palette */
+    --ap-green-hover: #C1FF1A;
+    --ap-grey-dark: #2A2A2A;
+    --ap-grey-medium: #3A3A3A;
+    --ap-grey-light: #9CA3AF;
+    --ap-grey-border: #333333;
+    
+    /* Typography */
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Sora', 'Inter', sans-serif;
+    
+    /* Spacing */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-neon: 0 0 20px rgba(175, 250, 0, 0.3);
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #AFFA00 0%, #CFED89 100%);
+    --gradient-dark: linear-gradient(180deg, #000000 0%, #1C1C1C 100%);
+    --gradient-card: linear-gradient(135deg, #1C1C1C 0%, #2A2A2A 100%);
+}
+
+/* ============================================
+   GLOBAL BASE STYLES
+   ============================================ */
+
+html, body, [class*="css"], .stApp {
+    font-family: var(--font-main);
+    color: var(--ap-white);
+    background-color: var(--ap-black);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.stApp {
+    background: var(--gradient-dark);
+}
+
+.block-container {
+    padding: 2rem 2.5rem;
+    max-width: 1400px;
+}
+
+/* Hide Streamlit defaults */
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+.stDeployButton {display: none;}
+
+/* ============================================
+   SIDEBAR - PREMIUM SPORTS-TECH NAV
+   ============================================ */
+
+section[data-testid="stSidebar"] {
+    background: var(--ap-charcoal);
+    border-right: 1px solid var(--ap-grey-border);
+}
+
+section[data-testid="stSidebar"] > div:first-child {
+    background: var(--ap-charcoal);
+}
+
+/* Logo Area */
+.ap-brand {
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid var(--ap-grey-border);
+    margin-bottom: 1.5rem;
+}
+
+.ap-brand-title {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--ap-white);
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.ap-brand-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ap-black);
+    background: var(--ap-green-neon);
+    border-radius: 999px;
+    padding: 0.25rem 0.65rem;
+    margin-bottom: 0.5rem;
+}
+
+.ap-brand-subtitle {
+    font-size: 0.75rem;
+    color: var(--ap-grey-light);
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+/* Navigation */
+section[data-testid="stSidebar"] .stRadio > div {
+    gap: 0.5rem;
+}
+
+section[data-testid="stSidebar"] .stRadio label {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+section[data-testid="stSidebar"] .stRadio label:hover {
+    background: var(--ap-grey-dark);
+    border-color: var(--ap-grey-border);
+}
+
+section[data-testid="stSidebar"] .stRadio label[data-checked="true"],
+section[data-testid="stSidebar"] .stRadio label:has(input:checked) {
+    background: var(--ap-green-neon);
+    border-color: var(--ap-green-neon);
+    box-shadow: var(--shadow-neon);
+}
+
+section[data-testid="stSidebar"] .stRadio label[data-checked="true"] p,
+section[data-testid="stSidebar"] .stRadio label:has(input:checked) p {
+    color: var(--ap-black) !important;
+    font-weight: 700;
+}
+
+section[data-testid="stSidebar"] .stRadio label p {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ap-white) !important;
+}
+
+/* Hide radio circles */
+section[data-testid="stSidebar"] .stRadio label > div:first-child {
+    display: none;
+}
+
+/* Sidebar footer */
+section[data-testid="stSidebar"] hr {
+    border-color: var(--ap-grey-border);
+    margin: 1.5rem 0;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.ap-hero {
+    background: var(--gradient-card);
+    border: 1px solid var(--ap-grey-border);
+    border-radius: var(--radius-xl);
+    padding: 3rem 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.ap-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(175, 250, 0, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.ap-hero-eyebrow {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ap-green-neon);
+    background: rgba(175, 250, 0, 0.1);
+    border: 1px solid rgba(175, 250, 0, 0.3);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.ap-hero h1 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--ap-white);
+    margin: 0 0 0.75rem 0;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.ap-hero p {
+    color: var(--ap-grey-light);
+    font-size: 1.05rem;
+    margin: 0;
+    max-width: 700px;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* ============================================
+   CARDS - ATHLETIC PERFORMANCE STYLE
+   ============================================ */
+
+.ap-card {
+    background: var(--gradient-card);
+    border: 1px solid var(--ap-grey-border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    height: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.ap-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--ap-grey-medium);
+}
+
+/* KPI Cards */
+.ap-kpi-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ap-grey-light);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ap-kpi-value {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--ap-white);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.ap-kpi-highlight {
+    color: var(--ap-green-neon);
+}
+
+.ap-kpi-hint {
+    font-size: 0.85rem;
+    color: var(--ap-grey-light);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.ap-kpi-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(175, 250, 0, 0.15);
+    color: var(--ap-green-neon);
+    border: 1px solid rgba(175, 250, 0, 0.3);
+}
+
+/* ============================================
+   BUTTONS - SPORTS-TECH STYLE
+   ============================================ */
+
+.stButton > button {
+    background: var(--gradient-primary);
+    color: var(--ap-black);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.85rem 2rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    text-transform: uppercase;
+    font-family: var(--font-display);
+}
+
+.stButton > button:hover {
+    background: var(--ap-green-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-neon);
+}
+
+.stButton > button:active {
+    transform: translateY(0);
+}
+
+.stButton > button[kind="secondary"] {
+    background: var(--ap-grey-dark);
+    color: var(--ap-white);
+    border: 1px solid var(--ap-grey-border);
+}
+
+.stButton > button[kind="secondary"]:hover {
+    background: var(--ap-grey-medium);
+    border-color: var(--ap-green-neon);
+}
+
+/* ============================================
+   SECTION HEADERS
+   ============================================ */
+
+.ap-section-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ap-white);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.01em;
+}
+
+.ap-section-desc {
+    font-size: 0.95rem;
+    color: var(--ap-grey-light);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 0.75rem;
+    background-color: var(--ap-charcoal);
+    border-radius: var(--radius-lg);
+    padding: 0.5rem;
+    border: 1px solid var(--ap-grey-border);
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    color: var(--ap-grey-light);
+    background-color: transparent;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.stTabs [data-baseweb="tab"]:hover {
+    background-color: var(--ap-grey-dark);
+    color: var(--ap-white);
+}
+
+.stTabs [aria-selected="true"] {
+    background: var(--ap-green-neon) !important;
+    color: var(--ap-black) !important;
+    font-weight: 700;
+    box-shadow: var(--shadow-neon);
+}
+
+/* ============================================
+   INPUTS & FORMS
+   ============================================ */
+
+.stTextInput > div > div > input,
+.stSelectbox > div > div,
+.stDateInput > div > div > input,
+.stNumberInput > div > div > input {
+    background-color: var(--ap-charcoal);
+    border: 1.5px solid var(--ap-grey-border);
+    border-radius: var(--radius-md);
+    color: var(--ap-white);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.stTextInput > div > div > input:focus,
+.stSelectbox > div > div:focus-within,
+.stDateInput > div > div > input:focus,
+.stNumberInput > div > div > input:focus {
+    border-color: var(--ap-green-neon);
+    box-shadow: 0 0 0 3px rgba(175, 250, 0, 0.1);
+}
+
+/* ============================================
+   CHARTS
+   ============================================ */
+
+.js-plotly-plot {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--ap-charcoal);
+    border: 1px solid var(--ap-grey-border);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   DATAFRAMES & TABLES
+   ============================================ */
+
+.stDataFrame {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--ap-grey-border);
+}
+
+.stDataFrame [data-testid="stDataFrameResizable"] {
+    background-color: var(--ap-charcoal);
+}
+
+/* ============================================
+   MESSAGES & ALERTS
+   ============================================ */
+
+.stSuccess, .stError, .stWarning, .stInfo {
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    border-left: 4px solid;
+    font-weight: 500;
+}
+
+.stSuccess {
+    background-color: rgba(175, 250, 0, 0.1);
+    border-left-color: var(--ap-green-neon);
+    color: var(--ap-green-light);
+}
+
+.stError {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-left-color: #EF4444;
+    color: #FCA5A5;
+}
+
+.stWarning {
+    background-color: rgba(245, 158, 11, 0.1);
+    border-left-color: #F59E0B;
+    color: #FCD34D;
+}
+
+.stInfo {
+    background-color: rgba(59, 130, 246, 0.1);
+    border-left-color: #3B82F6;
+    color: #93C5FD;
+}
+
+/* ============================================
+   CHAT INTERFACE (AI ASSISTANT)
+   ============================================ */
+
+.stChatMessage {
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--ap-grey-border);
+}
+
+.stChatMessage[data-testid="user-message"] {
+    background: var(--ap-charcoal);
+    border-left: 4px solid var(--ap-green-neon);
+}
+
+.stChatMessage[data-testid="assistant-message"] {
+    background: var(--ap-grey-dark);
+}
+
+/* ============================================
+   FILE UPLOADER
+   ============================================ */
+
+.stFileUploader {
+    border-radius: var(--radius-lg);
+    border: 2px dashed var(--ap-grey-border);
+    padding: 2rem;
+    transition: all 0.2s ease;
+    background: var(--ap-charcoal);
+}
+
+.stFileUploader:hover {
+    border-color: var(--ap-green-neon);
+    background: rgba(175, 250, 0, 0.05);
+}
+
+/* ============================================
+   EXPANDERS
+   ============================================ */
+
+.streamlit-expanderHeader {
+    border-radius: var(--radius-md);
+    background-color: var(--ap-charcoal);
+    border: 1px solid var(--ap-grey-border);
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.streamlit-expanderHeader:hover {
+    border-color: var(--ap-green-neon);
+    background-color: var(--ap-grey-dark);
+}
+
+/* ============================================
+   MULTISELECT
+   ============================================ */
+
+.stMultiSelect > div > div {
+    background-color: var(--ap-charcoal);
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--ap-grey-border);
+}
+
+.stMultiSelect [data-baseweb="tag"] {
+    background: var(--ap-green-neon);
+    border-radius: var(--radius-sm);
+    color: var(--ap-black);
+    border: none;
+    font-weight: 600;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--ap-charcoal);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--ap-grey-medium);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--ap-green-neon);
+}
+
+/* ============================================
+   LOADING SPINNER
+   ============================================ */
+
+.stSpinner > div {
+    border-top-color: var(--ap-green-neon) !important;
+}
+
+/* ============================================
+   METRIC COMPONENT
+   ============================================ */
+
+.stMetric {
+    background: var(--gradient-card);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--ap-grey-border);
+}
+
+.stMetric label {
+    color: var(--ap-grey-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+}
+
+.stMetric [data-testid="stMetricValue"] {
+    color: var(--ap-white);
+    font-family: var(--font-display);
+    font-weight: 800;
+}
+
+.stMetric [data-testid="stMetricDelta"] {
+    color: var(--ap-green-neon);
+}
+
+/* ============================================
+   FORM
+   ============================================ */
+
+.stForm {
+    background: var(--gradient-card);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    border: 1px solid var(--ap-grey-border);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   DISCLAIMER
+   ============================================ */
+
+.ap-disclaimer {
+    background: rgba(175, 250, 0, 0.05);
+    border-left: 4px solid var(--ap-green-neon);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--ap-grey-light);
+    margin-top: 2rem;
+    font-weight: 500;
+}
+
+.ap-disclaimer strong {
+    color: var(--ap-white);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .ap-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .ap-kpi-value {
+        font-size: 2rem;
+    }
+    
+    .block-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .ap-hero {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.ap-badge-success {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(34, 197, 94, 0.15);
+    color: #22C55E;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.ap-badge-neon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(175, 250, 0, 0.15);
+    color: var(--ap-green-neon);
+    border: 1px solid rgba(175, 250, 0, 0.3);
+}
+
+.ap-icon-neon {
+    color: var(--ap-green-neon);
+    font-size: 1.5rem;
+}
+
+/* ============================================
+   SPORTS PATTERN BACKGROUND (SUBTLE)
+   ============================================ */
+
+.ap-pattern-bg {
+    position: relative;
+    overflow: hidden;
+}
+
+.ap-pattern-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 50px,
+            rgba(175, 250, 0, 0.02) 50px,
+            rgba(175, 250, 0, 0.02) 51px
+        );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ============================================
+   ENHANCED TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--ap-white);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+p {
+    color: var(--ap-grey-light);
+    line-height: 1.6;
+}
+
+strong {
+    color: var(--ap-white);
+    font-weight: 700;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ap-fade-in {
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes pulse-neon {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(175, 250, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(175, 250, 0, 0.4);
+    }
+}
+
+.ap-pulse-neon {
+    animation: pulse-neon 2s ease-in-out infinite;
+}
+
